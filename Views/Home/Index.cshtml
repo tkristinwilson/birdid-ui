@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Bird.Id";
+}
+@model BirdId.Ui.Models.ClassifyViewModel
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+        <div class="">
+            <p class="">Using AI to identify 10 of the most <br/> commonly seen birds in New Zealand's forests.</p>
+            <img src="@(Model.PredictedImageUrl ?? Model.DefaultImageUrl)" style="max-width: 500px" asp-append-version="true">
+            <p class="figure-caption">@(Model.ImageCaption ?? Model.DefaultImageCaption)</p>
+            @if (Model.PredictionModeOn)
+            {
+                <div>
+                    <p>Paste an image URL or upload an image.</p>
+                    <p>Supported image types are jpg/jpeg/png and the maximum file size is 1MB.</p>
+                
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <p class="alert alert-info">@(Model.Message)</p>
+                    }
+                    <form asp-controller="home" asp-action="classify" method="post">
+                        <label for="ImageUrl"></label>
+                        <input asp-for="ImageUrl" placeholder="Image URL" />
+                        <input type="hidden" name="mode" id="mode" value="url" />
+                        <input type="submit" />
+                    </form>
+                    <form enctype="multipart/form-data"
+                          onsubmit="AJAXSubmit(this);return false;"
+                          method="post"
+                          action="/home/classify"
+                          id="fileform">
+                        <input type="file" id="file" name="file" class="inputfile" />
+                        <label for="file">Browse</label>
+                        <input type="hidden" name="mode" id="mode" value="file" />
+                    </form>
+                    <script>
+                        async function AJAXSubmit(oFormElement) {
+                            var resultElement = oFormElement.elements.namedItem("result");
+                            const formData = new FormData(oFormElement);
+
+                            try {
+                                const response = await fetch(oFormElement.action, {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                                if (response.ok) {
+                                    window.location.href = '/';
+                                }
+                                //resultElement.value = 'Result: ' + response.status + ' ' +  response.statusText;
+                            } catch (error) {
+                                console.error('Error:', error);
+                            }
+                        }
+                        document.getElementById("file").onchange = function () {
+                            document.getElementById("fileform").submit();
+                        };
+                    </script>
+                </div>
+            }
+            else
+            {
+                <p class="alert alert-info">Under Maintenance</p>
+            }
+        </div>        
+    </div>

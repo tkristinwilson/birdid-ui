@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<div class="text-left">
+<div class="text-center"><h1>@ViewData["Title"]</h1></div>
+<p>A project using computer vision to identify the top 10 most common bird species encountered in New Zeland's forests.</p>
+<h2>List of identifable birds</h2>
+<ol>
+<li>Bellbird/korimako</li>
+<li>Blackbird</li>
+<li>Chaffinch</li>
+<li>Fantail/pīwakawaka</li>
+<li>Grey warbler</li>
+<li>Kererū/New Zealand wood pigeon</li>
+<li>Rifleman</li>
+<li>Silver eye/wax-eye</li>
+<li>Tomtit</li>
+<li>Tūī</li>
+</ol>
+</p>
+<h2>FAQ</h2>
+<ul>
+    <li>The list of 10 birds to identify is taken from New Zealand's Department of Conservation's
+    <a href="https://www.doc.govt.nz/get-involved/training/online-courses/bird-identification-online-course/"
+       target="_blank"> online course</a>.</li>
+    <li>The model has an ~95% accuracy rate and will return the classification with the highest prediction number.</li>
+    <li>A prediction number of e.g. 0.4116642 means the model is 41% confident in its prediction, so not at all confident.</li>
+    <li>If you upload an image of a cat, the prediction will be which of the 10 known birds the cat most resembles (according to the model).</li>
+    <li>This project was completed as an early part of <a href="https://www.fast.ai/">Fastai's deep learning course (v3)</a>.</li>
+    <li>The default home image is from <a href="https://commons.wikimedia.org/wiki/File:Anthornis_melanura_2.jpg" target="_blank">Ashleigh Thompson/Wikimedia Commmons</a>.</li>
+</ul>        
+</div>
